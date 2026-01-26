@@ -34,7 +34,15 @@ public class TransactionDataLoader {
                         8,
                         new BigDecimal("700"),
                         "EUR"
-                )
+                ),
+                new Transaction(
+                        LocalDate.of(2024, 4, 1),
+                        "TSLA",
+                        TransactionType.SELL,
+                        20,
+                        new BigDecimal("720"),
+                        "EUR"
+                ) // this one will be skipped (short-sell)
         );
     }
 }
