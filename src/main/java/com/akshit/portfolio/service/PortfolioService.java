@@ -1,47 +1,78 @@
 package com.akshit.portfolio.service;
 
-import com.akshit.portfolio.domain.PortfolioPosition;
-import com.akshit.portfolio.domain.PortfolioReport;
+import com.akshit.portfolio.domain.*;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class PortfolioService {
 
+    private static final BigDecimal OPENING_BALANCE =
+            new BigDecimal("10000");
+
+    private BigDecimal currentBalance = OPENING_BALANCE;
+
     private final Map<String, PortfolioPosition> portfolio = new HashMap<>();
+    private final List<TransactionSnapshot> history = new ArrayList<>();
 
-    public void applyBuy(String ticker, int quantity, BigDecimal usdAmount) {
+    public void applyTransaction(
+            Transaction transaction,
+            BigDecimal exchangeRate,
+            BigDecimal usdAmount
+    ) {
+
         PortfolioPosition position =
-                portfolio.computeIfAbsent(ticker, t -> new PortfolioPosition());
-        position.buy(quantity, usdAmount);
-    }
+                portfolio.computeIfAbsent(
+                        transaction.ticker(),
+                        t -> new PortfolioPosition()
+                );
 
-    public boolean canSell(String ticker, int quantity) {
-        PortfolioPosition position = portfolio.get(ticker);
-        return position != null && position.getTotalShares() >= quantity;
-    }
+        if (transaction.type() == TransactionType.SELL
+                && position.getTotalShares() < transaction.quantity()) {
 
-    public void applySell(String ticker, int quantity, BigDecimal usdAmount) {
-        PortfolioPosition position = portfolio.get(ticker);
-        position.sell(quantity, usdAmount);
+            System.out.println(
+                    "Invalid SELL skipped (short-sell not allowed): "
+                            + transaction.ticker()
+            );
+            return;
+        }
+
+        if (transaction.type() == TransactionType.BUY) {
+            position.buy(transaction.quantity(), usdAmount);
+            currentBalance = currentBalance.subtract(usdAmount);
+        } else {
+            position.sell(transaction.quantity(), usdAmount);
+            currentBalance = currentBalance.add(usdAmount);
+        }
+
+        history.add(
+                new TransactionSnapshot(
+                        transaction.date(),
+                        transaction.ticker(),
+                        transaction.type().name(),
+                        transaction.quantity(),
+                        transaction.localPrice(),
+                        transaction.currency(),
+                        exchangeRate,
+                        usdAmount,
+                        currentBalance
+                )
+        );
     }
 
     public PortfolioReport generateReport() {
-        Map<String, PortfolioReport.PortfolioSummary> summary = new HashMap<>();
 
-        for (var entry : portfolio.entrySet()) {
-            if (entry.getValue().getTotalShares() > 0) {
-                summary.put(
-                        entry.getKey(),
-                        new PortfolioReport.PortfolioSummary(
-                                entry.getValue().getTotalShares(),
-                                entry.getValue().getTotalInvestmentUsd()
-                        )
-                );
-            }
-        }
+        BigDecimal totalInvested =
+                portfolio.values().stream()
+                        .map(PortfolioPosition::getTotalInvestmentUsd)
+                        .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-        return new PortfolioReport(summary);
+        return new PortfolioReport(
+                OPENING_BALANCE,
+                currentBalance,
+                totalInvested,
+                portfolio,
+                history
+        );
     }
 }

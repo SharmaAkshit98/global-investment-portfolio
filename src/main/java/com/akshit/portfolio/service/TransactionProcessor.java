@@ -1,7 +1,6 @@
 package com.akshit.portfolio.service;
 
 import com.akshit.portfolio.domain.Transaction;
-import com.akshit.portfolio.domain.TransactionType;
 import com.akshit.portfolio.fx.ExchangeRateProvider;
 import com.akshit.portfolio.pricing.StockPriceProvider;
 
@@ -25,38 +24,20 @@ public class TransactionProcessor {
 
     public void process(Transaction transaction) {
 
-        BigDecimal price = stockPriceProvider
+        BigDecimal stockPrice = stockPriceProvider
                 .getPrice(transaction.ticker(), transaction.date());
 
-        BigDecimal usdAmount = price
-                .multiply(BigDecimal.valueOf(transaction.quantity()))
-                .multiply(exchangeRateProvider.getUsdRate(
-                        transaction.currency(),
-                        transaction.date()
-                ));
+        BigDecimal exchangeRate = exchangeRateProvider
+                .getUsdRate(transaction.currency(), transaction.date());
 
-        if (transaction.type() == TransactionType.BUY) {
-            portfolioService.applyBuy(
-                    transaction.ticker(),
-                    transaction.quantity(),
-                    usdAmount
-            );
-        } else {
-            if (portfolioService.canSell(
-                    transaction.ticker(),
-                    transaction.quantity()
-            )) {
-                portfolioService.applySell(
-                        transaction.ticker(),
-                        transaction.quantity(),
-                        usdAmount
-                );
-            } else {
-                System.err.println(
-                        "Invalid SELL skipped (short-sell not allowed): "
-                                + transaction.ticker()
-                );
-            }
-        }
+        BigDecimal usdAmount = stockPrice
+                .multiply(BigDecimal.valueOf(transaction.quantity()))
+                .multiply(exchangeRate);
+
+        portfolioService.applyTransaction(
+                transaction,
+                exchangeRate,
+                usdAmount
+        );
     }
 }
