@@ -1,10 +1,8 @@
-package com.akshit.portfolio.fx;
+package com.globalinvest.portfolio.fx;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public interface ExchangeRateProvider {
-
-    BigDecimal getUsdRate(String currency, LocalDate date);
-
+    BigDecimal getRate(String currency, LocalDate date);
 }

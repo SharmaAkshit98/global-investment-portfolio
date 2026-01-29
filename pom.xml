@@ -15,7 +15,7 @@
 	</parent>
 
 
-	<groupId>com.akshit.portfolio</groupId>
+	<groupId>com.globalinvest.portfolio</groupId>
 	<artifactId>global-investment-portfolio</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>global-investment-portfolio</name>
