@@ -1,4 +1,4 @@
-package com.akshit.portfolio.domain;
+package com.globalinvest.portfolio.domain;
 
 public enum TransactionType {
     BUY,

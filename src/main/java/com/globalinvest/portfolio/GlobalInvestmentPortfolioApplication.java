@@ -1,4 +1,4 @@
-package com.akshit.portfolio;
+package com.globalinvest.portfolio;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,5 +9,4 @@ public class GlobalInvestmentPortfolioApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(GlobalInvestmentPortfolioApplication.class, args);
 	}
-
 }
