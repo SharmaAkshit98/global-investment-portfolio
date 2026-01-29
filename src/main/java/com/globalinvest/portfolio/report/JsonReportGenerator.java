@@ -38,8 +38,8 @@ public class JsonReportGenerator {
 
             mapper.writeValue(reportFile.toFile(), report);
 
-            System.out.println("\n✅ Portfolio report generated successfully");
-            System.out.println("📄 File location: " + reportFile.toAbsolutePath());
+            System.out.println("Portfolio report generated successfully");
+            System.out.println("File location: " + reportFile.toAbsolutePath());
 
         } catch (Exception e) {
             throw new RuntimeException("Failed to generate JSON report", e);
