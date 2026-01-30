@@ -6,6 +6,7 @@ import com.globalinvest.portfolio.fx.StaticExchangeRateProvider;
 import com.globalinvest.portfolio.report.JsonReportGenerator;
 import com.globalinvest.portfolio.service.PortfolioService;
 import com.globalinvest.portfolio.service.TransactionProcessor;
+import com.globalinvest.portfolio.report.ExcelReportGenerator;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -47,6 +48,6 @@ public class PortfolioRunner implements CommandLineRunner {
 
 
         var report = portfolioService.generateReport();
-        new JsonReportGenerator().generate(report);
+        new ExcelReportGenerator().generate(report);
     }
 }
