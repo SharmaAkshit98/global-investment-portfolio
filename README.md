@@ -2,9 +2,7 @@
 
 A production-style Java application that processes multi-currency stock transactions, normalizes all investments into USD using exchange rates, enforces trading rules, and generates a detailed JSON portfolio report.
 
-
 # Problem Statement
-
 Users can buy and sell stocks across global markets using different local currencies (USD, INR, EUR, etc.).  
 To provide a clear financial overview, all transactions must be consolidated into a **single base currency (USD)** using exchange rates applicable at the time of the transaction.
 
@@ -13,7 +11,6 @@ The system must:
 - Convert all values to USD
 - Prevent invalid trades (e.g., short selling)
 - Generate a structured JSON report
-
 
 # Architecture & Project Structure
 
