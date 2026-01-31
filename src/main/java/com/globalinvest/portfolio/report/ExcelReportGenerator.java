@@ -110,7 +110,6 @@ public class ExcelReportGenerator {
         autoSize(sheet, headers.length);
     }
 
-    // ---------- Statistics ----------
     private void createStatisticsSheet(
             Workbook workbook,
             PortfolioReport report
