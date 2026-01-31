@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class ExcelReportGenerator {
 
-    private static final String REPORT_DIR = "reports/excel";
+    private static final String REPORT_DIR = "reports";
 
     public void generate(PortfolioReport report) {
         try {
