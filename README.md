@@ -32,7 +32,7 @@ src/main/java/com/globalinvest/portfolio/
 │ └── StaticExchangeRateProvider.java
 │
 ├── report/
-│ └── JsonReportGenerator.java
+│ └── ExcelReportGenerator.java
 │
 ├── service/
 │ ├── PortfolioService.java
