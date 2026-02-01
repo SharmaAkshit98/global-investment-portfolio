@@ -10,7 +10,6 @@ This project demonstrates clean architecture, financial accuracy using `BigDecim
 - Buy / Sell transaction handling
 - **Short-sell prevention** (invalid sell transactions are rejected and logged)
 - Secure, random transaction ID generation
-- Detailed transaction history tracking
 - **Excel report generation (`.xlsx`)**
 - Timestamped reports with automatic folder creation
 
