@@ -3,7 +3,6 @@ package com.globalinvest.portfolio.app;
 import com.globalinvest.portfolio.domain.Transaction;
 import com.globalinvest.portfolio.domain.TransactionType;
 import com.globalinvest.portfolio.fx.StaticExchangeRateProvider;
-import com.globalinvest.portfolio.report.JsonReportGenerator;
 import com.globalinvest.portfolio.service.PortfolioService;
 import com.globalinvest.portfolio.service.TransactionProcessor;
 import com.globalinvest.portfolio.report.ExcelReportGenerator;
@@ -45,7 +44,6 @@ public class PortfolioRunner implements CommandLineRunner {
                 LocalDate.now(), "TESLA", TransactionType.SELL,
                 5, new BigDecimal("200"), "USD"
         ));
-
 
         var report = portfolioService.generateReport();
         new ExcelReportGenerator().generate(report);

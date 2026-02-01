@@ -1,53 +1,59 @@
 # global-investment-portfolio
 
-A production-style Java application that processes multi-currency stock transactions, normalizes all investments into USD using exchange rates, enforces trading rules, and generates a detailed JSON portfolio report.
+This project demonstrates clean architecture, financial accuracy using `BigDecimal`, extensible design, and real-world reporting suitable for enterprise systems.
 
-# Problem Statement
-Users can buy and sell stocks across global markets using different local currencies (USD, INR, EUR, etc.).  
-To provide a clear financial overview, all transactions must be consolidated into a **single base currency (USD)** using exchange rates applicable at the time of the transaction.
 
-The system must:
-- Track holdings per stock
-- Convert all values to USD
-- Prevent invalid trades (e.g., short selling)
-- Generate a structured JSON report
+## Key Features
 
-# Architecture & Project Structure
+- Multi-currency stock transaction processing (USD, INR, etc.)
+- Automatic currency normalization into **USD**
+- Buy / Sell transaction handling
+- **Short-sell prevention** (invalid sell transactions are rejected and logged)
+- Secure, random transaction ID generation
+- Detailed transaction history tracking
+- **Excel report generation (`.xlsx`)**
+- Timestamped reports with automatic folder creation
 
-src/main/java/com/globalinvest/portfolio
+# Project Structure
+src/main/java/com/globalinvest/portfolio/
 │
-├── app
-│ └── PortfolioRunner.java → Application entry & orchestration
+├── app/
+│ └── PortfolioRunner.java
 │
-├── domain
-│ ├── Transaction.java → Core transaction model
-│ ├── TransactionType.java → BUY / SELL
-│ ├── TransactionLogEntry.java → Transaction history records
-│ ├── PortfolioPosition.java → Holdings per stock
-│ └── PortfolioReport.java → Final report model
+├── domain/
+│ ├── PortfolioPosition.java
+│ ├── PortfolioReport.java
+│ ├── Transaction.java
+│ ├── TransactionLogEntry.java
+│ └── TransactionType.java
 │
-├── service
-│ ├── TransactionProcessor.java → Business rules & transaction execution
-│ └── PortfolioService.java → Portfolio aggregation logic
+├── fx/
+│ ├── ExchangeRateProvider.java
+│ └── StaticExchangeRateProvider.java
 │
-├── fx
-│ ├── ExchangeRateProvider.java → Exchange rate abstraction
-│ └── StaticExchangeRateProvider.java → In-memory exchange rates
+├── report/
+│ └── ExcelReportGenerator.java
 │
-├── report
-│ └── JsonReportGenerator.java → JSON report writer
+├── service/
+│ ├── PortfolioService.java
+│ └── TransactionProcessor.java
 │
-├── util
-│ └── TransactionIdGenerator.java → Secure transaction ID generator
+├── util/
+│ └── TransactionIdGenerator.java
 │
 └── GlobalInvestmentPortfolioApplication.java
 
-How to Run
+## Excel Report Output
+
+When the application runs, it generates an **Excel file** under:
+reports/
+
+Each run creates a **new timestamped Excel file**, ensuring reports are never overwritten.
+
+## How to Run
 Prerequisites:
 Java 17+
 Maven
 
 IntelliJ IDEA / Eclipse
 Run via Terminal: mvn spring-boot:run
-
-A timestamped JSON report will be generated under the reports/ directory.
