@@ -46,11 +46,11 @@ src/main/java/com/globalinvest/portfolio/
 ## Excel Report Output
 
 When the application runs, it generates an **Excel file** under:
-reports/excel/ 
+reports/
 
 Each run creates a **new timestamped Excel file**, ensuring reports are never overwritten.
 
-## 🔧 How to Run
+## How to Run
 Prerequisites:
 Java 17+
 Maven
