@@ -47,7 +47,6 @@ public class ExcelReportGenerator {
         }
     }
 
-    // ---------- Portfolio Summary ----------
     private void createPortfolioSummarySheet(
             Workbook workbook,
             Map<String, PortfolioPosition> summary
@@ -72,7 +71,6 @@ public class ExcelReportGenerator {
         autoSize(sheet, 3);
     }
 
-    // ---------- Transaction History ----------
     private void createTransactionHistorySheet(
             Workbook workbook,
             java.util.List<TransactionLogEntry> logs

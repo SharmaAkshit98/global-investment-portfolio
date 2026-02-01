@@ -45,7 +45,6 @@ public class PortfolioRunner implements CommandLineRunner {
                 5, new BigDecimal("200"), "USD"
         ));
 
-
         var report = portfolioService.generateReport();
         new ExcelReportGenerator().generate(report);
     }
