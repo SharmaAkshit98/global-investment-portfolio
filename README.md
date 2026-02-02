@@ -2,7 +2,6 @@
 
 This project demonstrates clean architecture, financial accuracy using `BigDecimal`, extensible design, and real-world reporting suitable for enterprise systems.
 
-
 ## Key Features
 
 - Multi-currency stock transaction processing (USD, INR, etc.)
