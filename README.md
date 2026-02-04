@@ -3,7 +3,6 @@
 This project demonstrates clean architecture, financial accuracy using `BigDecimal`, extensible design, and real-world reporting suitable for enterprise systems.
 
 ## Key Features
-
 - Multi-currency stock transaction processing (USD, INR, etc.)
 - Automatic currency normalization into **USD**
 - Buy / Sell transaction handling
@@ -42,7 +41,6 @@ src/main/java/com/globalinvest/portfolio/
 └── GlobalInvestmentPortfolioApplication.java
 
 ## Excel Report Output
-
 When the application runs, it generates an **Excel file** under:
 reports/
 
